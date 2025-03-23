@@ -149,8 +149,63 @@ public class EmojiPickerViewModel: ObservableObject {
     
     /// Get all emoji as one big array
     public static func getAllEmoji() -> [Emoji] {
-        guard let url = Bundle.module.url(forResource: "Emoji Unicode 15.0", withExtension: "json", subdirectory: "Resources") else {
+        // Debug: List all available resources in the module bundle
+        #if DEBUG
+        print("Bundle.module resourcePath: \(Bundle.module.resourcePath ?? "nil")")
+        
+        if let resourcePath = Bundle.module.resourcePath {
+            do {
+                let fileManager = FileManager.default
+                let items = try fileManager.contentsOfDirectory(atPath: resourcePath)
+                print("Resources in bundle: \(items)")
+            } catch {
+                print("Failed to list resources: \(error)")
+            }
+        }
+        #endif
+        
+        guard let url = Bundle.module.url(forResource: "Emoji Unicode 15.0", withExtension: "json") else {
             print("Failed to find emoji data file")
+            
+            // Try an alternative approach by searching all bundles
+            #if DEBUG
+            let allBundles = Bundle.allBundles
+            print("Searching in \(allBundles.count) bundles")
+            
+            for (index, bundle) in allBundles.enumerated() {
+                print("Bundle \(index): \(bundle.bundlePath)")
+                
+                if let resourcePath = bundle.resourcePath {
+                    do {
+                        let fileManager = FileManager.default
+                        let items = try fileManager.contentsOfDirectory(atPath: resourcePath)
+                        if !items.isEmpty {
+                            print("Resources in bundle \(index): \(items)")
+                        }
+                        
+                        // Check if there's a Resources directory
+                        if items.contains("Resources") {
+                            let resourcesPath = resourcePath + "/Resources"
+                            let resourcesItems = try fileManager.contentsOfDirectory(atPath: resourcesPath)
+                            print("Items in Resources directory: \(resourcesItems)")
+                            
+                            if resourcesItems.contains("Emoji Unicode 15.0.json") {
+                                print("Found emoji file in bundle \(index)")
+                            }
+                        }
+                    } catch {
+                        print("Failed to list resources for bundle \(index): \(error)")
+                    }
+                }
+                
+                if let url = bundle.url(forResource: "Emoji Unicode 15.0", withExtension: "json") {
+                    print("Found emoji file in bundle \(index) at path: \(url.path)")
+                } else if let url = bundle.url(forResource: "Emoji Unicode 15.0", withExtension: "json", subdirectory: "Resources") {
+                    print("Found emoji file with subdirectory in bundle \(index) at path: \(url.path)")
+                }
+            }
+            #endif
+            
             return []
         }
         
