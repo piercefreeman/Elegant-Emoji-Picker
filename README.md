@@ -1,6 +1,6 @@
 # Elegant Emoji Picker
 
-A modern, customizable emoji picker component for Swift applications on macOS and iOS. This is a SwiftUI fork of [Finalet/Elegant-Emoji-Picker](https://github.com/Finalet/Elegant-Emoji-Picker) with a large-scale rewrite for better performance and platform compatibility.
+A modern, customizable emoji picker component for Swift applications on macOS and iOS. This is a SwiftUI fork of [Finalet/Elegant-Emoji-Picker](https://github.com/Finalet/Elegant-Emoji-Picker) with a large-scale rewrite for better platform compatibility.
 
 ![Emoji Picker Screenshot](./docs/screenshot.png)
 

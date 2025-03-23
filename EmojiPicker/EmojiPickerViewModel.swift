@@ -8,16 +8,16 @@ public class EmojiPickerViewModel: ObservableObject {
     public let localization: ElegantLocalization
     
     // Data
-    @Published private(set) var emojiSections: [EmojiSection] = []
-    @Published private(set) var filteredEmojis: [Emoji] = []
-    @Published private(set) var selectedEmoji: Emoji?
-    @Published private(set) var previewingEmoji: Emoji?
-    @Published var currentSkinTone: EmojiSkinTone?
-    @Published var searchText: String = ""
-    @Published var showingSkinToneSelector: Bool = false
-    @Published var selectedSectionIndex: Int = 0
-    @Published var highlightedEmoji: Emoji?
-    @Published var isSearching: Bool = false
+    @Published public private(set) var emojiSections: [EmojiSection] = []
+    @Published public private(set) var filteredEmojis: [Emoji] = []
+    @Published public private(set) var selectedEmoji: Emoji?
+    @Published public private(set) var previewingEmoji: Emoji?
+    @Published public var currentSkinTone: EmojiSkinTone?
+    @Published public var searchText: String = ""
+    @Published public var showingSkinToneSelector: Bool = false
+    @Published public var selectedSectionIndex: Int = 0
+    @Published public var highlightedEmoji: Emoji?
+    @Published public var isSearching: Bool = false
     
     // User defaults for storing skin tone preferences if enabled
     private let userDefaults = UserDefaults.standard

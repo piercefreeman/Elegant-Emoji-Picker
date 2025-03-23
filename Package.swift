@@ -51,7 +51,7 @@ let package = Package(
             dependencies: [
                 "EmojiPicker",
             ],
-            path: "Tests/MyLibraryName/",
+            path: "Tests/EmojiPicker/",
             exclude: [
                 "Resources/README.md",
                 "Toolbox/README.md",
