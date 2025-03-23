@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13A53BE92D8F870700BCAB15 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13A53BE82D8F870700BCAB15 /* EmojiPicker */; };
+		13A53BEC2D8F918E00BCAB15 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13A53BEB2D8F918E00BCAB15 /* EmojiPicker */; };
+		13A53BEF2D90697200BCAB15 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13A53BEE2D90697200BCAB15 /* EmojiPicker */; };
+		13A53BF22D906A6400BCAB15 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13A53BF12D906A6400BCAB15 /* EmojiPicker */; };
+		13A53BF52D90717000BCAB15 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 13A53BF42D90717000BCAB15 /* EmojiPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +60,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13A53BEF2D90697200BCAB15 /* EmojiPicker in Frameworks */,
+				13A53BF22D906A6400BCAB15 /* EmojiPicker in Frameworks */,
 				13A53BE92D8F870700BCAB15 /* EmojiPicker in Frameworks */,
+				13A53BF52D90717000BCAB15 /* EmojiPicker in Frameworks */,
+				13A53BEC2D8F918E00BCAB15 /* EmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +126,10 @@
 			name = EmojiDemo;
 			packageProductDependencies = (
 				13A53BE82D8F870700BCAB15 /* EmojiPicker */,
+				13A53BEB2D8F918E00BCAB15 /* EmojiPicker */,
+				13A53BEE2D90697200BCAB15 /* EmojiPicker */,
+				13A53BF12D906A6400BCAB15 /* EmojiPicker */,
+				13A53BF42D90717000BCAB15 /* EmojiPicker */,
 			);
 			productName = EmojiDemo;
 			productReference = 13A53BB62D8F859100BCAB15 /* EmojiDemo.app */;
@@ -202,7 +214,7 @@
 			mainGroup = 13A53BAD2D8F859100BCAB15;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				13A53BE72D8F870700BCAB15 /* XCLocalSwiftPackageReference "../../../Elegant-Emoji-Picker" */,
+				13A53BF32D90717000BCAB15 /* XCLocalSwiftPackageReference "../../../Elegant-Emoji-Picker" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 13A53BB72D8F859100BCAB15 /* Products */;
@@ -552,7 +564,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		13A53BE72D8F870700BCAB15 /* XCLocalSwiftPackageReference "../../../Elegant-Emoji-Picker" */ = {
+		13A53BF32D90717000BCAB15 /* XCLocalSwiftPackageReference "../../../Elegant-Emoji-Picker" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../../../Elegant-Emoji-Picker";
 		};
@@ -560,6 +572,22 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		13A53BE82D8F870700BCAB15 /* EmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmojiPicker;
+		};
+		13A53BEB2D8F918E00BCAB15 /* EmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmojiPicker;
+		};
+		13A53BEE2D90697200BCAB15 /* EmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmojiPicker;
+		};
+		13A53BF12D906A6400BCAB15 /* EmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmojiPicker;
+		};
+		13A53BF42D90717000BCAB15 /* EmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EmojiPicker;
 		};

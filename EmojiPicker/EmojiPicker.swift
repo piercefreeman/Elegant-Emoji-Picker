@@ -154,7 +154,9 @@ public struct EmojiPicker: View {
     
     private var searchResultsView: some View {
         VStack {
-            if viewModel.filteredEmojis.isEmpty {
+            if viewModel.isSearching {
+                loadingSpinner
+            } else if viewModel.filteredEmojis.isEmpty {
                 Text(viewModel.localization.searchResultsEmptyTitle)
                     .foregroundColor(.secondary)
                     .padding()
@@ -193,6 +195,27 @@ public struct EmojiPicker: View {
                 }
             }
         }
+    }
+    
+    private var loadingSpinner: some View {
+        VStack {
+            #if os(macOS)
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(0.7)
+                .frame(width: 24, height: 24)
+            #else
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+                .scaleEffect(0.7)
+            #endif
+            
+            Text(viewModel.localization.searchingText)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.top, 4)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var emojiPreviewOverlay: some View {

@@ -17,10 +17,14 @@ public class EmojiPickerViewModel: ObservableObject {
     @Published var showingSkinToneSelector: Bool = false
     @Published var selectedSectionIndex: Int = 0
     @Published var highlightedEmoji: Emoji?
+    @Published var isSearching: Bool = false
     
     // User defaults for storing skin tone preferences if enabled
     private let userDefaults = UserDefaults.standard
     private var cancellables = Set<AnyCancellable>()
+    
+    // Track the latest search ID to handle concurrent searches
+    private var latestSearchID = 0
     
     public init(
         configuration: ElegantConfiguration = ElegantConfiguration(),
@@ -40,7 +44,20 @@ public class EmojiPickerViewModel: ObservableObject {
             self.emojiSections = Self.getDefaultEmojiSections(config: configuration, localization: localization)
         }
         
-        // Set up search functionality
+        // Set up direct text change monitoring to immediately show loading state
+        $searchText
+            .sink { [weak self] text in
+                if !text.isEmpty {
+                    self?.isSearching = true
+                    self?.filteredEmojis = [] // Clear results while searching
+                } else {
+                    self?.isSearching = false
+                    self?.filteredEmojis = []
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Set up debounced search functionality
         $searchText
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .removeDuplicates()
@@ -104,29 +121,43 @@ public class EmojiPickerViewModel: ObservableObject {
     
     private func performSearch(query: String) {
         if query.isEmpty {
+            isSearching = false
             filteredEmojis = []
             return
         }
         
-        let searchTerms = query.lowercased().split(separator: " ").map(String.init)
+        // Generate a unique ID for this search operation to prevent race conditions
+        let currentSearchID = latestSearchID + 1
+        latestSearchID = currentSearchID
         
-        let results = emojiSections.flatMap { $0.emojis }.filter { emoji in
-            let descriptionMatch = emoji.description.lowercased().contains(query.lowercased())
-            let aliasMatch = emoji.aliases.contains { alias in
-                searchTerms.contains { term in
-                    alias.lowercased().contains(term)
+        // Perform the search
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let searchTerms = query.lowercased().split(separator: " ").map(String.init)
+            
+            let results = self.emojiSections.flatMap { $0.emojis }.filter { emoji in
+                let descriptionMatch = emoji.description.lowercased().contains(query.lowercased())
+                let aliasMatch = emoji.aliases.contains { alias in
+                    searchTerms.contains { term in
+                        alias.lowercased().contains(term)
+                    }
                 }
-            }
-            let tagMatch = emoji.tags.contains { tag in
-                searchTerms.contains { term in
-                    tag.lowercased().contains(term)
+                let tagMatch = emoji.tags.contains { tag in
+                    searchTerms.contains { term in
+                        tag.lowercased().contains(term)
+                    }
                 }
+                
+                return descriptionMatch || aliasMatch || tagMatch
             }
             
-            return descriptionMatch || aliasMatch || tagMatch
+            // Only update UI if this is still the latest search operation
+            if currentSearchID == self.latestSearchID {
+                self.filteredEmojis = results
+                self.isSearching = false
+            }
         }
-        
-        filteredEmojis = results
     }
     
     private func saveSkinTonePreference(for emoji: Emoji, skinTone: EmojiSkinTone?) {

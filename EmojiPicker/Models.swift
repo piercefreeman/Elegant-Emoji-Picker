@@ -208,6 +208,7 @@ public struct ElegantLocalization {
     public let searchFieldPlaceholder: String
     public let searchResultsTitle: String
     public let searchResultsEmptyTitle: String
+    public let searchingText: String
     public let randomButtonTitle: String
     public let resetButtonTitle: String
     public let closeButtonTitle: String
@@ -217,6 +218,7 @@ public struct ElegantLocalization {
         searchFieldPlaceholder: String = "Search",
         searchResultsTitle: String = "Search results",
         searchResultsEmptyTitle: String = "No results",
+        searchingText: String = "Searching...",
         randomButtonTitle: String = "Random",
         resetButtonTitle: String = "Reset",
         closeButtonTitle: String = "Close",
@@ -225,6 +227,7 @@ public struct ElegantLocalization {
         self.searchFieldPlaceholder = searchFieldPlaceholder
         self.searchResultsTitle = searchResultsTitle
         self.searchResultsEmptyTitle = searchResultsEmptyTitle
+        self.searchingText = searchingText
         self.randomButtonTitle = randomButtonTitle
         self.resetButtonTitle = resetButtonTitle
         self.closeButtonTitle = closeButtonTitle
